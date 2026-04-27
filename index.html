@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Petite question</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffd6e8, #d6f0ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 26px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    button {
+      border: none;
+      padding: 14px 28px;
+      font-size: 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    #yesBtn {
+      background-color: #ff6fae;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.08);
+      background-color: #ff4f9d;
+    }
+
+    #noBtn {
+      background-color: #ddd;
+      color: #333;
+      position: fixed;
+      z-index: 5;
+    }
+
+    #result {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #00111f;
+      color: white;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+      padding: 20px;
+    }
+
+    #result h2 {
+      font-size: 38px;
+      margin-bottom: 25px;
+    }
+
+    .sharkGif {
+      width: 420px;
+      max-width: 90%;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+      animation: bite 0.45s infinite alternate;
+    }
+
+    @keyframes bite {
+      from {
+        transform: scale(1) rotate(-2deg);
+      }
+      to {
+        transform: scale(1.12) rotate(2deg);
+      }
+    }
+
+    .message {
+      font-size: 24px;
+      margin-top: 25px;
+    }
+
+    @media (max-width: 500px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 12px 24px;
+      }
+
+      #result h2 {
+        font-size: 30px;
+      }
+
+      .message {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Tu veux un petit bisou dans le cou ? 😘</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Oui</button>
+      <button id="noBtn">Non</button>
+    </div>
+  </div>
+
+  <div id="result">
+    <h2>Trop tard 😈</h2>
+
+    <img
+      class="sharkGif"
+      src="https://gifdb.com/images/high/shark-swimming-attack-bite-qa81hkdpy4c9g0qf.gif"
+      alt="Requin qui mord"
+    />
+
+    <div class="message">Le requin mord !!!</div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const result = document.getElementById("result");
+
+    function moveNoButton() {
+      const buttonWidth = noBtn.offsetWidth;
+      const buttonHeight = noBtn.offsetHeight;
+
+      const maxX = window.innerWidth - buttonWidth;
+      const maxY = window.innerHeight - buttonHeight;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    }
+
+    window.addEventListener("load", () => {
+      const rect = noBtn.getBoundingClientRect();
+      noBtn.style.left = rect.left + "px";
+      noBtn.style.top = rect.top + "px";
+    });
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+
+    noBtn.addEventListener("touchstart", (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      result.style.display = "flex";
+    });
+  </script>
+</body>
+</html>
